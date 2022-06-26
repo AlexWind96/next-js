@@ -1,0 +1,1 @@
+export { getAllPostIds } from './posts'

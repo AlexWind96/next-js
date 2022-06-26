@@ -4,11 +4,15 @@ import Head from 'next/head'
 
 export default function Index() {
   return (
-    <HomeLayout>
+    <>
       <Head>
         <title>Index page | Next.js</title>
       </Head>
-      <Title>Hello</Title>
-    </HomeLayout>
+      <Title>Home page</Title>
+    </>
   )
+}
+
+Index.getLayout = function getLayout(page) {
+  return <HomeLayout>{page}</HomeLayout>
 }

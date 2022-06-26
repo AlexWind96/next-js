@@ -4,6 +4,8 @@ import { getCookie, setCookies } from 'cookies-next'
 import Head from 'next/head'
 import { useState } from 'react'
 
+import '../styles/global.css'
+
 export default function App(props) {
   const { Component, pageProps } = props
   const [colorScheme, setColorScheme] = useState(props.colorScheme)
@@ -13,6 +15,7 @@ export default function App(props) {
     setColorScheme(nextColorScheme)
     setCookies('mantine-color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 })
   }
+  const getLayout = Component.getLayout || ((page) => page)
 
   return (
     <>
@@ -24,9 +27,7 @@ export default function App(props) {
 
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-          <NotificationsProvider>
-            <Component {...pageProps} />
-          </NotificationsProvider>
+          <NotificationsProvider>{getLayout(<Component {...pageProps} />)}</NotificationsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </>
